@@ -1,4 +1,9 @@
 <h4>Buscar:</h4>
 <div class="input-group input-group-sm mb-3">
-  <input type="text" placeholder="Ingrese una palabra a buscar" class="form-control">
+  <input type="text"
+    placeholder="Ingrese una palabra a buscar"
+    class="form-control"
+    (keyup.enter)="searchTag()"
+    #txtTagInput>
+    <!-- (keyup.enter)="searchTag(txtTagInput.value)" forma nativa lectura de input-->
 </div>
