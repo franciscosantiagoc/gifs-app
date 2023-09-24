@@ -1,11 +1,11 @@
 <div class="row">
-  <div class="col-lg-4 col-md-6 col-12">
+  <div *ngFor="let gifItem of gifs" class="col-lg-4 col-md-6 col-12">
     <div class="card mb-2 text-center bg-dark">
-      <img class="card-img-top" src="" alt="">
+      <img class="card-img-top" [src]="gifItem.images.downsized_medium.url" alt="Image {{gifItem.title}}">
       <div class="card-body">
-        <h5 class="card-title"></h5>
+        <h5 class="card-title text-white">{{gifItem.title}}</h5>
         <p class="card-text"></p>
-        <a class="btn btn-primary" download></a>
+        <a class="btn btn-primary" [href]="gifItem.embed_url">Ver similares</a>
       </div>
     </div>
   </div>
