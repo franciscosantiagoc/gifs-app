@@ -12,11 +12,12 @@ export class GifsService {
   private _tagsHistory: string[] = [];
   private GIPHY_API_KEY:string = import.meta.env.NG_APP_API_KEY;
   private GIPHY_URL:string = 'http://api.giphy.com/v1/gifs/search';
-  private LIMIT: number = 9;
+  private LIMIT: number = 50;
   constructor(
     private http: HttpClient
   ) {
     this.loadTagsHistory();
+    this.loadLastSearch();
   }
 
   get tagsHistory() {
@@ -43,6 +44,13 @@ export class GifsService {
     if( !dataStorage) return;
 
     this._tagsHistory = JSON.parse(dataStorage);
+  }
+
+  private loadLastSearch(): void {
+    if(!this._tagsHistory.length) return;
+
+    let lastTagSearched: string = this._tagsHistory.shift()!;
+    this.searchTag(lastTagSearched)
   }
 
   searchTag (tag: string) {
