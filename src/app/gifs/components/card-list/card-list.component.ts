@@ -3,7 +3,8 @@ import { Gif } from '../../interfaces/gifs.interfaces';
 
 @Component({
   selector: 'gifs-card-list',
-  templateUrl: './card-list.component.html'
+  templateUrl: './card-list.component.html',
+  styleUrls: ['./card-list.component.less']
 })
 export class CardListComponent {
   @Input()
