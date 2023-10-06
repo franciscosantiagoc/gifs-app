@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Gif } from '../../interfaces/gifs.interfaces';
+import { GifsService } from '../../services/gifs.service';
 
 @Component({
   selector: 'gifs-card-list',
@@ -9,5 +10,15 @@ import { Gif } from '../../interfaces/gifs.interfaces';
 export class CardListComponent {
   @Input()
   public gifs: Gif[] = [];
+  page: number = 1;
+  total: number = 100;
+
+  constructor(private gifsServices:GifsService) {}
+
+
+  pageChanged(page:number): void {
+    this.gifsServices.setPage(page);
+    this.page = page;
+  }
 
 }

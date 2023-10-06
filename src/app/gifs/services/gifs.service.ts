@@ -8,11 +8,15 @@ import { SearchResponse, Gif } from '../interfaces/gifs.interfaces';
 export class GifsService {
 
   public gifList: Gif[] = [];
+  public totalGifs: number = 0;
+  private page:number = 0;
+  private OFFSET:number = 0;
+
 
   private _tagsHistory: string[] = [];
   private GIPHY_API_KEY:string = import.meta.env.NG_APP_API_KEY;
   private GIPHY_URL:string = 'http://api.giphy.com/v1/gifs/search';
-  private LIMIT: number = 50;
+  private LIMIT: number = 10;
   constructor(
     private http: HttpClient
   ) {
@@ -60,11 +64,20 @@ export class GifsService {
     const params = new HttpParams()
       .set('q', tag)
       .set('api_key', this.GIPHY_API_KEY)
-      .set('limit', this.LIMIT);
+      .set('limit', this.LIMIT)
+      .set('offset', this.OFFSET);
 
     this.http.get<SearchResponse>(`${this.GIPHY_URL}`, { params })
     .subscribe((resp) => {
       this.gifList = resp.data;
+      this.totalGifs = resp.pagination.total_count;
     })
+  }
+
+  setPage(page: number) {
+    this.page = page;
+    this.OFFSET = (this.page-1) * this.LIMIT;
+
+    this.loadLastSearch();
   }
 }
